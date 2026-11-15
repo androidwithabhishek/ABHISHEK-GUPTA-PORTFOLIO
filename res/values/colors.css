@@ -1,0 +1,39 @@
+/* =========================================================
+   colors.css — Like colors.xml in Android
+   All color tokens. Change theme from one place.
+   ========================================================= */
+:root {
+  /* Colors — light */
+  --bg: #F6F5F0;
+  --surface: #FFFFFF;
+  --ink: #14161A;
+  --ink-soft: #4B4F58;
+  --muted: #80858F;
+  --border: #E5E2D8;
+
+  /* Colors — dark */
+  --dark: #0F1115;
+  --dark-surface: #181B22;
+  --dark-surface-2: #1F232C;
+  --dark-border: #2A2E38;
+  --dark-ink: #F3F3EF;
+  --dark-muted: #9BA0AC;
+
+  /* Accent — Android-inspired emerald */
+  --accent: #2FBF71;
+  --accent-dark: #1F9C5A;
+  --accent-soft: #E1F6EA;
+  --accent-soft-dark: #17301F;
+
+  /* Type */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+
+  /* Layout */
+  --max-w: 1180px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-card: 0 1px 2px rgba(20,22,26,0.04), 0 8px 24px rgba(20,22,26,0.06);
+}
