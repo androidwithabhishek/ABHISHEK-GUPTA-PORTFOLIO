@@ -77,7 +77,9 @@ const PROJECTS = [
     status: "Currently in 14 days testing",
     description: "One or two sentences about the app.",
     features: ["Built with Kotlin & Jetpack Compose", "Another point"],
-    screenshotType: "remote",
+    screenshotType: "local",
+    landscapeBg: "#11151C", // colour behind landscape images (bars above/below). Default is light grey.
+    mediaHeight: 400, // screenshot box height in px (default 580); wide screenshots look best shorter
     imageUrl: null,
     screenshots: [
       "res/drawable/screenshots/fruit_game/fg1.jpeg",
@@ -85,6 +87,36 @@ const PROJECTS = [
     ],
     links: { playStore: null, youtube: null },
     fallbackLink: "https://github.com/androidwithabhishek",
+    showPlayBadge: false,
+  },
+
+  {
+    id: "image_search",
+    title: "Image Search App",
+    status: "Available on GitHub",
+    description:
+      "An Android image search app. The full source code is available on GitHub.",
+    features: [
+      "Search for images by keyword",
+      "Open source — browse the full code on GitHub",
+    ],
+    screenshotType: "local",
+    imageUrl: null,
+    screenshots: [
+      "res/drawable/screenshots/image_search_app/ias1.jpeg",
+      "res/drawable/screenshots/image_search_app/ias2.jpeg",
+      "res/drawable/screenshots/image_search_app/ias3.jpeg",
+      "res/drawable/screenshots/image_search_app/ias4.jpeg",
+      "res/drawable/screenshots/image_search_app/ias5.jpeg",
+      "res/drawable/screenshots/image_search_app/ias6.jpeg",
+      "res/drawable/screenshots/image_search_app/ias7.jpeg",
+    ],
+    links: {
+      playStore: null,
+      github: "https://github.com/androidwithabhishek/Image-Search-App",
+      youtube: null,
+    },
+    fallbackLink: "https://github.com/androidwithabhishek/Image-Search-App",
     showPlayBadge: false,
   },
 ];

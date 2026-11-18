@@ -409,7 +409,7 @@ p { margin: 0; }
 /* Screenshot carousel inside card */
 .project-card__media--carousel {
   aspect-ratio: auto;
-  height: 400px;
+  height: var(--media-height, 580px);
   display: block;
   background: #11151C;
 }
@@ -435,14 +435,14 @@ p { margin: 0; }
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  padding: 12px 28px 40px;
+  padding: 10px 16px 40px;
   border-radius: 0;
   object-fit: contain !important;
   object-position: center;
 }
 .screenshots-track img.is-landscape {
   padding: 0;
-  background: #F3F2F6;
+  background: var(--landscape-bg, #F3F2F6);
 }
 .project-card:hover .screenshots-track img { transform: none; }
 

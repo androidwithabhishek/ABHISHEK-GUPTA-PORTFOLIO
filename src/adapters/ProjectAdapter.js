@@ -43,6 +43,13 @@ class ProjectAdapter {
 
     if (project.screenshotType === "local" && project.screenshots.length > 0) {
       // Local screenshots carousel — one image at a time, like an Instagram post.
+      // Optional per-project look: landscapeBg (colour behind wide images), mediaHeight (px)
+      const mediaVars = [
+        project.landscapeBg ? `--landscape-bg: ${project.landscapeBg}` : "",
+        project.mediaHeight ? `--media-height: ${project.mediaHeight}px` : "",
+      ]
+        .filter(Boolean)
+        .join("; ");
       const imgs = project.screenshots
         .map(
           (src, index) =>
@@ -66,7 +73,7 @@ class ProjectAdapter {
                 </div>`
         : "";
       mediaHTML = `
-                <div class="project-card__media project-card__media--carousel" data-carousel>
+                <div class="project-card__media project-card__media--carousel" data-carousel${mediaVars ? ` style="${mediaVars}"` : ""}>
                     <div class="screenshots-viewport"><div class="screenshots-track">${imgs}</div></div>
                     ${carouselControls}
                     ${carouselIndicators}
@@ -113,9 +120,10 @@ class ProjectAdapter {
     if (project.links.github) {
       badgesHTML += `<a href="${project.links.github}" target="_blank" rel="noopener" class="card-badge card-badge--github">${GITHUB_SVG}<span>GitHub</span></a>`;
     }
-    badgesHTML += project.links.youtube
-      ? `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube">${YOUTUBE_SVG}<span>Demo Video</span></a>`
-      : `<span class="card-badge card-badge--youtube card-badge--placeholder" aria-disabled="true" title="Demo video link coming soon">${YOUTUBE_SVG}<span>Demo Video</span><span class="card-badge__notice">Soon</span></span>`;
+    // Demo Video badge only appears on cards that actually have a video link
+    if (project.links.youtube) {
+      badgesHTML += `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube">${YOUTUBE_SVG}<span>Demo Video</span></a>`;
+    }
 
     card.innerHTML = `
             ${mediaHTML}
