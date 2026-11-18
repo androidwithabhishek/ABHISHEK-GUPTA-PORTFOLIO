@@ -413,7 +413,17 @@ p { margin: 0; }
   display: block;
   background: #11151C;
 }
-.screenshots-viewport { width: 100%; height: 100%; overflow: hidden; }
+.screenshots-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: pan-y;          /* allow vertical page scroll, let JS handle horizontal swipe */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.screenshots-viewport:active { cursor: grabbing; }
+.screenshots-track img { -webkit-user-drag: none; pointer-events: none; }
 .screenshots-track {
   display: flex;
   width: 100%;

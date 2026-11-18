@@ -13,70 +13,81 @@ const YOUTUBE_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 
 const PLAY_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.3 2.7c-.2.3-.3.7-.3 1.2v16.2c0 .5.1.9.3 1.2l9.1-9.3L3.3 2.7Z" fill="#00C4B4"/><path d="m13.3 11.4 2.4-2.5-10.5-5.9c-.4-.2-.8-.3-1.2-.3l9.3 8.7Z" fill="#E84335"/><path d="m13.3 12.6-9.3 8.7c.4 0 .8-.1 1.2-.3l10.5-5.9-2.4-2.5Z" fill="#34A853"/><path d="m16.6 14.4 3.4-1.9c.5-.3.7-.7.7-1s-.2-.7-.7-1l-3.4-1.9-2.6 2.9 2.6 2.9Z" fill="#FBBC05"/></svg>`;
 
 class ProjectAdapter {
+  /**
+   * Renders all project cards (like onCreateViewHolder + onBindViewHolder)
+   */
+  static bindProjectCards(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+    PROJECTS.forEach((project) => {
+      container.appendChild(ProjectAdapter.createViewHolder(project));
+    });
+  }
 
-    /**
-     * Renders all project cards (like onCreateViewHolder + onBindViewHolder)
-     */
-    static bindProjectCards(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = '';
-        PROJECTS.forEach(project => {
-            container.appendChild(ProjectAdapter.createViewHolder(project));
-        });
-    }
+  /**
+   * Creates a single project card — ViewHolder pattern
+   */
+  static createViewHolder(project) {
+    const card = document.createElement("article");
+    card.className =
+      "project-card" + (project.testingStatus ? " project-card--testing" : "");
 
-    /**
-     * Creates a single project card — ViewHolder pattern
-     */
-    static createViewHolder(project) {
-        const card = document.createElement('article');
-        card.className = 'project-card' + (project.testingStatus ? ' project-card--testing' : '');
+    // --- Media section ---
+    const primaryLink =
+      project.links.playStore ||
+      project.links.github ||
+      project.fallbackLink ||
+      "#";
+    let mediaHTML = "";
 
-        // --- Media section ---
-        const primaryLink = project.links.playStore || project.links.github || project.fallbackLink || '#';
-        let mediaHTML = '';
-
-        if (project.screenshotType === 'local' && project.screenshots.length > 0) {
-            // Local screenshots carousel — one image at a time, like an Instagram post.
-            const imgs = project.screenshots.map((src, index) =>
-                `<img src="${src}" alt="${project.title} screenshot ${index + 1} of ${project.screenshots.length}" loading="lazy">`
-            ).join('');
-            const hasMultipleScreenshots = project.screenshots.length > 1;
-            const carouselControls = hasMultipleScreenshots ? `
+    if (project.screenshotType === "local" && project.screenshots.length > 0) {
+      // Local screenshots carousel — one image at a time, like an Instagram post.
+      const imgs = project.screenshots
+        .map(
+          (src, index) =>
+            `<img src="${src}" alt="${project.title} screenshot ${index + 1} of ${project.screenshots.length}" loading="lazy">`,
+        )
+        .join("");
+      const hasMultipleScreenshots = project.screenshots.length > 1;
+      const carouselControls = hasMultipleScreenshots
+        ? `
                 <button class="carousel-control carousel-control--previous" type="button" data-carousel-action="previous" aria-label="Previous screenshot" hidden>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7" /></svg>
                 </button>
                 <button class="carousel-control carousel-control--next" type="button" data-carousel-action="next" aria-label="Next screenshot">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7" /></svg>
-                </button>` : '';
-            const carouselIndicators = hasMultipleScreenshots ? `
+                </button>`
+        : "";
+      const carouselIndicators = hasMultipleScreenshots
+        ? `
                 <div class="carousel-indicators" aria-label="Screenshot navigation">
-                    ${project.screenshots.map((_, index) => `<button class="carousel-dot${index === 0 ? ' is-active' : ''}" type="button" data-carousel-index="${index}" aria-label="Show screenshot ${index + 1}"${index === 0 ? ' aria-current="true"' : ''}></button>`).join('')}
-                </div>` : '';
-            mediaHTML = `
+                    ${project.screenshots.map((_, index) => `<button class="carousel-dot${index === 0 ? " is-active" : ""}" type="button" data-carousel-index="${index}" aria-label="Show screenshot ${index + 1}"${index === 0 ? ' aria-current="true"' : ""}></button>`).join("")}
+                </div>`
+        : "";
+      mediaHTML = `
                 <div class="project-card__media project-card__media--carousel" data-carousel>
                     <div class="screenshots-viewport"><div class="screenshots-track">${imgs}</div></div>
                     ${carouselControls}
                     ${carouselIndicators}
-                    ${project.showPlayBadge ? ProjectAdapter.playBadgeHTML() : ''}
-                    ${project.testingStatus ? `<span class="status-pill">${project.testingStatus}</span>` : ''}
+                    ${project.showPlayBadge ? ProjectAdapter.playBadgeHTML() : ""}
+                    ${project.testingStatus ? `<span class="status-pill">${project.testingStatus}</span>` : ""}
                 </div>`;
-        } else if (project.screenshotType === 'remote' && project.imageUrl) {
-            // Remote single image
-            mediaHTML = `
+    } else if (project.screenshotType === "remote" && project.imageUrl) {
+      // Remote single image
+      mediaHTML = `
                 <a class="project-card__media" href="${primaryLink}" target="_blank" rel="noopener">
                     <img src="${project.imageUrl}" alt="${project.title}" loading="lazy"
                          style="object-fit: contain !important; object-position: center !important;">
-                    ${project.showPlayBadge ? ProjectAdapter.playBadgeHTML() : ''}
-                    ${project.testingStatus ? `<span class="status-pill">${project.testingStatus}</span>` : ''}
+                    ${project.showPlayBadge ? ProjectAdapter.playBadgeHTML() : ""}
+                    ${project.testingStatus ? `<span class="status-pill">${project.testingStatus}</span>` : ""}
                 </a>`;
-        } else {
-            // No image — show fallback link
-            const linkHTML = project.fallbackLink
-                ? `<a href="${project.fallbackLink}" target="_blank">🔗 View on web →</a>`
-                : `<span>Screenshots coming soon</span>`;
-            mediaHTML = `
+    } else {
+      // No image — show fallback link
+      const linkHTML = project.fallbackLink
+        ? `<a href="${project.fallbackLink}" target="_blank">🔗 View on web →</a>`
+        : `<span>Screenshots coming soon</span>`;
+      mediaHTML = `
                 <a class="project-card__media" href="${primaryLink}" target="_blank" rel="noopener">
                     <div class="card-no-image">
                         <div class="placeholder-icon">📱</div>
@@ -84,31 +95,29 @@ class ProjectAdapter {
                         ${linkHTML}
                     </div>
                 </a>`;
-        }
+    }
 
-        // --- Features list ---
-        const featuresHTML = project.features
-            .map(f => `<li>${f}</li>`)
-            .join('');
+    // --- Features list ---
+    const featuresHTML = project.features.map((f) => `<li>${f}</li>`).join("");
 
-        // --- Status badge ---
-        const statusHTML = project.status
-            ? `<span class="project-card__status">${project.status}</span>`
-            : '';
+    // --- Status badge ---
+    const statusHTML = project.status
+      ? `<span class="project-card__status">${project.status}</span>`
+      : "";
 
-        // --- Badge links (Play Store style) ---
-        let badgesHTML = '';
-        if (project.links.playStore) {
-            badgesHTML += `<a href="${project.links.playStore}" target="_blank" rel="noopener" class="card-badge card-badge--play">${PLAY_SVG}<span>Google Play</span></a>`;
-        }
-        if (project.links.github) {
-            badgesHTML += `<a href="${project.links.github}" target="_blank" rel="noopener" class="card-badge card-badge--github">${GITHUB_SVG}<span>GitHub</span></a>`;
-        }
-        badgesHTML += project.links.youtube
-            ? `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube">${YOUTUBE_SVG}<span>Demo Video</span></a>`
-            : `<span class="card-badge card-badge--youtube card-badge--placeholder" aria-disabled="true" title="Demo video link coming soon">${YOUTUBE_SVG}<span>Demo Video</span><span class="card-badge__notice">Soon</span></span>`;
+    // --- Badge links (Play Store style) ---
+    let badgesHTML = "";
+    if (project.links.playStore) {
+      badgesHTML += `<a href="${project.links.playStore}" target="_blank" rel="noopener" class="card-badge card-badge--play">${PLAY_SVG}<span>Google Play</span></a>`;
+    }
+    if (project.links.github) {
+      badgesHTML += `<a href="${project.links.github}" target="_blank" rel="noopener" class="card-badge card-badge--github">${GITHUB_SVG}<span>GitHub</span></a>`;
+    }
+    badgesHTML += project.links.youtube
+      ? `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube">${YOUTUBE_SVG}<span>Demo Video</span></a>`
+      : `<span class="card-badge card-badge--youtube card-badge--placeholder" aria-disabled="true" title="Demo video link coming soon">${YOUTUBE_SVG}<span>Demo Video</span><span class="card-badge__notice">Soon</span></span>`;
 
-        card.innerHTML = `
+    card.innerHTML = `
             ${mediaHTML}
             <div class="project-card__body">
                 <div class="project-card__top">
@@ -119,55 +128,139 @@ class ProjectAdapter {
                 </div>
                 <p class="project-card__desc">${project.description}</p>
                 <ul class="project-card__features">${featuresHTML}</ul>
-                ${badgesHTML ? `<div class="card-badges card-badges--project-links">${badgesHTML}</div>` : ''}
+                ${badgesHTML ? `<div class="card-badges card-badges--project-links">${badgesHTML}</div>` : ""}
             </div>
         `;
 
-        ProjectAdapter.initCarousel(card);
+    ProjectAdapter.initCarousel(card);
 
-        return card;
-    }
+    return card;
+  }
 
-    /** Adds Instagram-style navigation to local screenshot sets. */
-    static initCarousel(card) {
-        const carousel = card.querySelector('[data-carousel]');
-        if (!carousel) return;
+  /** Adds Instagram-style navigation to local screenshot sets. */
+  static initCarousel(card) {
+    const carousel = card.querySelector("[data-carousel]");
+    if (!carousel) return;
 
-        const track = carousel.querySelector('.screenshots-track');
-        const slides = [...track.querySelectorAll('img')];
-        const previous = carousel.querySelector('[data-carousel-action="previous"]');
-        const next = carousel.querySelector('[data-carousel-action="next"]');
-        const dots = [...carousel.querySelectorAll('[data-carousel-index]')];
-        const markOrientation = (image) => {
-            if (image.naturalWidth > image.naturalHeight) image.classList.add('is-landscape');
-        };
-        slides.forEach((image) => {
-            if (image.complete) markOrientation(image);
-            else image.addEventListener('load', () => markOrientation(image), { once: true });
+    const track = carousel.querySelector(".screenshots-track");
+    const slides = [...track.querySelectorAll("img")];
+    const previous = carousel.querySelector(
+      '[data-carousel-action="previous"]',
+    );
+    const next = carousel.querySelector('[data-carousel-action="next"]');
+    const dots = [...carousel.querySelectorAll("[data-carousel-index]")];
+    const markOrientation = (image) => {
+      if (image.naturalWidth > image.naturalHeight)
+        image.classList.add("is-landscape");
+    };
+    slides.forEach((image) => {
+      if (image.complete) markOrientation(image);
+      else
+        image.addEventListener("load", () => markOrientation(image), {
+          once: true,
         });
-        if (slides.length < 2 || !previous || !next || dots.length !== slides.length) return;
+    });
+    if (
+      slides.length < 2 ||
+      !previous ||
+      !next ||
+      dots.length !== slides.length
+    )
+      return;
 
-        let activeIndex = 0;
-        const showSlide = (index) => {
-            activeIndex = Math.max(0, Math.min(index, slides.length - 1));
-            track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
-            previous.hidden = activeIndex === 0;
-            next.hidden = activeIndex === slides.length - 1;
-            dots.forEach((dot, dotIndex) => {
-                const isActive = dotIndex === activeIndex;
-                dot.classList.toggle('is-active', isActive);
-                if (isActive) dot.setAttribute('aria-current', 'true');
-                else dot.removeAttribute('aria-current');
-            });
-        };
+    let activeIndex = 0;
+    const showSlide = (index) => {
+      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+      track.style.transition = "";
+      track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+      previous.hidden = activeIndex === 0;
+      next.hidden = activeIndex === slides.length - 1;
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === activeIndex;
+        dot.classList.toggle("is-active", isActive);
+        if (isActive) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    };
 
-        previous.addEventListener('click', () => showSlide(activeIndex - 1));
-        next.addEventListener('click', () => showSlide(activeIndex + 1));
-        dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
-    }
+    previous.addEventListener("click", () => showSlide(activeIndex - 1));
+    next.addEventListener("click", () => showSlide(activeIndex + 1));
+    dots.forEach((dot, index) =>
+      dot.addEventListener("click", () => showSlide(index)),
+    );
 
-    static playBadgeHTML() {
-        return `<span class="store-badge" aria-label="Google Play">${PLAY_SVG}<span>Google Play</span></span>`;
-    }
+    // ---- Swipe / drag support (touch + mouse + pen) ----
+    const viewport = carousel.querySelector(".screenshots-viewport");
+    slides.forEach((img) => {
+      img.draggable = false;
+    });
 
+    let startX = 0,
+      startY = 0,
+      dragX = 0,
+      startTime = 0;
+    let isDragging = false,
+      isHorizontal = false,
+      activePointer = null;
+
+    const dragTo = (offsetPx) => {
+      track.style.transition = "none";
+      track.style.transform = `translate3d(calc(-${activeIndex * 100}% + ${offsetPx}px), 0, 0)`;
+    };
+
+    viewport.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      isDragging = true;
+      isHorizontal = false;
+      activePointer = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+      dragX = 0;
+      startTime = Date.now();
+    });
+
+    viewport.addEventListener("pointermove", (e) => {
+      if (!isDragging || e.pointerId !== activePointer) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (!isHorizontal) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; // not moved enough yet
+        if (Math.abs(dy) > Math.abs(dx)) {
+          isDragging = false;
+          return;
+        } // vertical scroll
+        isHorizontal = true;
+        viewport.setPointerCapture(e.pointerId);
+      }
+
+      // Rubber-band feel at the first / last slide
+      const pullingPastStart = activeIndex === 0 && dx > 0;
+      const pullingPastEnd = activeIndex === slides.length - 1 && dx < 0;
+      dragX = pullingPastStart || pullingPastEnd ? dx * 0.3 : dx;
+      dragTo(dragX);
+    });
+
+    const endDrag = (e) => {
+      if (!isDragging || e.pointerId !== activePointer) return;
+      isDragging = false;
+      if (!isHorizontal) return;
+
+      const distanceNeeded = Math.min(60, viewport.clientWidth * 0.2);
+      const isQuickFlick = Date.now() - startTime < 300 && Math.abs(dragX) > 30;
+
+      if (dragX < -distanceNeeded || (isQuickFlick && dragX < 0))
+        showSlide(activeIndex + 1);
+      else if (dragX > distanceNeeded || (isQuickFlick && dragX > 0))
+        showSlide(activeIndex - 1);
+      else showSlide(activeIndex);
+    };
+
+    viewport.addEventListener("pointerup", endDrag);
+    viewport.addEventListener("pointercancel", endDrag);
+  }
+
+  static playBadgeHTML() {
+    return `<span class="store-badge" aria-label="Google Play">${PLAY_SVG}<span>Google Play</span></span>`;
+  }
 }
