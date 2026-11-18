@@ -78,9 +78,11 @@ const PROJECTS = [
     description: "One or two sentences about the app.",
     features: ["Built with Kotlin & Jetpack Compose", "Another point"],
     screenshotType: "remote",
-    imageUrl:
-      "https://raw.githubusercontent.com/androidwithabhishek/NEW-RES/main/FRUIT%20GAME/fruit_game_banner.png",
-    screenshots: [],
+    imageUrl: null,
+    screenshots: [
+      "res/drawable/screenshots/fruit_game/fg1.jpeg",
+      "res/drawable/screenshots/fruit_game/fg2.jpeg",
+    ],
     links: { playStore: null, youtube: null },
     fallbackLink: "https://github.com/androidwithabhishek",
     showPlayBadge: false,
@@ -89,39 +91,39 @@ const PROJECTS = [
 
 // ---- Profile Data (like strings.xml) ----
 const PROFILE = {
-    name: "Abhishek Gupta",
-    role: "Android Developer",
-    bio: "I build Android applications with a focus on smooth, user-friendly experiences and clean, maintainable code. Based in Uttar Pradesh, India.",
-    location: "Uttar Pradesh, India",
-    focus: "Kotlin & Jetpack Compose",
+  name: "Abhishek Gupta",
+  role: "Android Developer",
+  bio: "I build Android applications with a focus on smooth, user-friendly experiences and clean, maintainable code. Based in Uttar Pradesh, India.",
+  location: "Uttar Pradesh, India",
+  focus: "Kotlin & Jetpack Compose",
 
-    // Resume — put screenshot in res/drawable/resume/ OR set a link
-    resumeImage: null,  // "res/drawable/resume/resume_ss.png"
-    resumeLink: null,   // "https://drive.google.com/your-resume-link"
+  // Resume — put screenshot in res/drawable/resume/ OR set a link
+  resumeImage: null, // "res/drawable/resume/resume_ss.png"
+  resumeLink: null, // "https://drive.google.com/your-resume-link"
 
-    // Education
-    education: [
-        {
-            title: "Bachelor of Computer Applications (BCA)",
-            org: "IFTM University, Moradabad",
-            year: "2022 – 2025",
-            extra: "CGPA: 7.92"
-        },
-        {
-            title: "Android 14 Application Development Masterclass",
-            org: "Udemy",
-            year: null,
-            extra: "Instructor: Denish Panjuta"
-        }
-    ],
+  // Education
+  education: [
+    {
+      title: "Bachelor of Computer Applications (BCA)",
+      org: "IFTM University, Moradabad",
+      year: "2022 – 2025",
+      extra: "CGPA: 7.92",
+    },
+    {
+      title: "Android 14 Application Development Masterclass",
+      org: "Udemy",
+      year: null,
+      extra: "Instructor: Denish Panjuta",
+    },
+  ],
 
-    // Contact
-    email: "abhishekgupta766853@gmail.com",
-    phone: "+91 7668532625",
-    github: "https://github.com/androidwithabhishek",
-    githubHandle: "github.com/androidwithabhishek",
-    linkedin: "https://www.linkedin.com/in/abhishekgupta7668/",
-    linkedinHandle: "in/abhishekgupta7668",
-    instagram: null, // Add the verified Instagram profile URL when available.
-    instagramHandle: "Link coming soon",
+  // Contact
+  email: "abhishekgupta766853@gmail.com",
+  phone: "+91 7668532625",
+  github: "https://github.com/androidwithabhishek",
+  githubHandle: "github.com/androidwithabhishek",
+  linkedin: "https://www.linkedin.com/in/abhishekgupta7668/",
+  linkedinHandle: "in/abhishekgupta7668",
+  instagram: null, // Add the verified Instagram profile URL when available.
+  instagramHandle: "Link coming soon",
 };
