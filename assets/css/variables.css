@@ -1,5 +1,5 @@
 /* =========================================================
-   colors.css — Like colors.xml in Android
+   variables.css — colour tokens
    All color tokens. Change theme from one place.
    ========================================================= */
 :root {
@@ -19,7 +19,7 @@
   --dark-ink: #F3F3EF;
   --dark-muted: #9BA0AC;
 
-  /* Accent — Android-inspired emerald */
+  /* Accent — emerald */
   --accent: #2FBF71;
   --accent-dark: #1F9C5A;
   --accent-soft: #E1F6EA;

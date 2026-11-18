@@ -1,8 +1,8 @@
 /* =========================================================
-   styles.css — Like styles.xml / themes.xml in Android
-   Imports colors.css and defines all component styles.
+   style.css — all layout and component styles
+   Imports variables.css (colours) and the Google Fonts.
    ========================================================= */
-@import url('colors.css');
+@import url('variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* ---- Reduced Motion ---- */
@@ -79,7 +79,7 @@ p { margin: 0; }
 .btn--sm { padding: 8px 16px; font-size: 0.85rem; }
 
 /* =========================================================
-   NAVBAR — Like Toolbar / ActionBar
+   NAVBAR
    ========================================================= */
 .nav {
   position: sticky;
@@ -370,7 +370,7 @@ p { margin: 0; }
 .section__sub--light { color: var(--dark-muted); }
 
 /* =========================================================
-   PROJECTS — Like RecyclerView + CardView
+   PROJECTS
    ========================================================= */
 .projects-grid {
   display: grid;
