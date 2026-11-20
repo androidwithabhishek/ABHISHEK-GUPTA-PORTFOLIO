@@ -10,5 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Behaviour
   Nav.init();
+  ThemeToggle.init();
   TypingEffect.init();
 });

@@ -99,22 +99,24 @@ class ProjectCards {
     // --- Features list ---
     const featuresHTML = project.features.map((f) => `<li>${f}</li>`).join("");
 
-    // --- Status badge ---
-    const statusHTML = project.status
+    // --- Status badge (hide "Available on GitHub") ---
+    const statusHTML = project.status && project.status !== "Available on GitHub"
       ? `<span class="project-card__status">${project.status}</span>`
       : "";
 
-    // --- Badge links (Play Store style) ---
+    // --- Badge links (Play Store only at bottom) ---
     let badgesHTML = "";
     if (project.links.playStore) {
       badgesHTML += `<a href="${project.links.playStore}" target="_blank" rel="noopener" class="card-badge card-badge--play">${PLAY_SVG}<span>Google Play</span></a>`;
     }
+
+    // --- Inline badge links at end of title row (GitHub & YouTube with icon + name) ---
+    let titleBadgesHTML = "";
     if (project.links.github) {
-      badgesHTML += `<a href="${project.links.github}" target="_blank" rel="noopener" class="card-badge card-badge--github">${GITHUB_SVG}<span>GitHub</span></a>`;
+      titleBadgesHTML += `<a href="${project.links.github}" target="_blank" rel="noopener" class="card-badge card-badge--github card-badge--inline">${GITHUB_SVG}<span>GitHub</span></a>`;
     }
-    // Demo Video badge only appears on cards that actually have a video link
     if (project.links.youtube) {
-      badgesHTML += `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube">${YOUTUBE_SVG}<span>Demo Video</span></a>`;
+      titleBadgesHTML += `<a href="${project.links.youtube}" target="_blank" rel="noopener" class="card-badge card-badge--youtube card-badge--inline">${YOUTUBE_SVG}<span>Demo Video</span></a>`;
     }
 
     card.innerHTML = `
@@ -125,6 +127,7 @@ class ProjectCards {
                         <h3 class="project-card__title">${project.title}</h3>
                         ${statusHTML}
                     </div>
+                    ${titleBadgesHTML ? `<div class="project-card__title-badges">${titleBadgesHTML}</div>` : ""}
                 </div>
                 <p class="project-card__desc">${project.description}</p>
                 <ul class="project-card__features">${featuresHTML}</ul>

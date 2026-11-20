@@ -1,30 +1,4 @@
-/**
- * data/projects.js — ⭐ EDIT THIS FILE to add, change or remove projects.
- *
- * Screenshots are NOT listed here → see data/project-images.js
- *
- * ---- Template: copy this block, paste it before the closing ]; ----
- *
- *   {
- *     id: "my-new-app",              // lowercase-with-dashes; also the images folder name
- *     title: "My New App",
- *     status: "Published",           // short text under the title (optional)
- *     description: "One or two sentences.",
- *     features: ["Point one", "Point two"],
- *     links: {
- *       playStore: null,             // "https://play.google.com/..." or null
- *       github: null,                // "https://github.com/..." or null
- *       youtube: null,               // demo video URL or null (badge only shows if set)
- *     },
- *     fallbackLink: "https://github.com/androidwithabhishek",  // used when there are no screenshots
- *     showPlayBadge: false,          // small "Google Play" badge on the image
- *
- *     // Optional look settings (delete if not needed):
- *     // landscapeBg: "#11151C",     // colour behind wide (landscape) screenshots
- *     // mediaHeight: 400,           // screenshot box height in px (default 580)
- *     // imageUrl: "https://...",    // single remote image, only used when the project has no screenshots
- *   },
- */
+
 
 const PROJECTS = [
   {
@@ -77,7 +51,6 @@ const PROJECTS = [
     status: "Currently in 14 days testing",
     description: "One or two sentences about the app.",
     features: ["Built with Kotlin & Jetpack Compose", "Another point"],
-    landscapeBg: "#11151C", // colour behind landscape images (bars above/below). Default is light grey.
     mediaHeight: 400, // screenshot box height in px (default 580); wide screenshots look best shorter
     links: { playStore: null, youtube: null },
     fallbackLink: "https://github.com/androidwithabhishek",
@@ -91,8 +64,32 @@ const PROJECTS = [
     description:
       "An Android image search app. The full source code is available on GitHub.",
     features: [
-      "Search for images by keyword",
-      "Open source — browse the full code on GitHub",
+      "Search and browse images",
+      "Load image search results",
+      "View images in detail with pinch-to-zoom functionality",
+      "Download images in different available resolutions and qualities",
+      "Like and save your favorite images for quick access later",
+    ],
+    links: {
+      playStore: null,
+      github: "https://github.com/androidwithabhishek/Image-Search-App",
+      youtube: null,
+    },
+    fallbackLink: "https://github.com/androidwithabhishek/Image-Search-App",
+    showPlayBadge: false,
+  },
+  {
+    id: "image-search-app",
+    title: "Image Search App",
+    status: "Available on GitHub",
+    description:
+      "An Android image search app. The full source code is available on GitHub.",
+    features: [
+      "Search and browse images",
+      "Load image search results",
+      "View images in detail with pinch-to-zoom functionality",
+      "Download images in different available resolutions and qualities",
+      "Like and save your favorite images for quick access later",
     ],
     links: {
       playStore: null,

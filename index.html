@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Apply saved theme immediately to prevent flash
+      if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abhishek Gupta — Android Developer</title>
@@ -22,6 +26,10 @@
           <a href="#projects" class="nav__link">Projects</a>
           <a href="#resume" class="nav__link">Resume</a>
           <a href="#contact" class="nav__link">Contact</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode" type="button">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32 1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"/></svg>
+          </button>
         </nav>
 
         <button
@@ -121,13 +129,13 @@
       </section>
 
       <!-- ============ CONTACT ============ -->
-      <section id="contact" class="section section--dark">
+      <section id="contact" class="section">
         <div class="section__inner">
-          <p class="kicker kicker--light">Contact</p>
-          <h2 class="section__title section__title--light">
+          <p class="kicker">Contact</p>
+          <h2 class="section__title">
             Let's build something together.
           </h2>
-          <p class="section__sub section__sub--light">
+          <p class="section__sub">
             Open to Android Developer roles and freelance work. Reach out
             through any of the channels below.
           </p>
@@ -173,6 +181,7 @@
     <script src="assets/js/components/carousel.js"></script>
     <script src="assets/js/components/project-cards.js"></script>
     <script src="assets/js/components/sections.js"></script>
+    <script src="assets/js/components/theme-toggle.js"></script>
     <script src="assets/js/components/nav.js"></script>
     <script src="assets/js/components/typing-effect.js"></script>
     <script src="assets/js/main.js"></script>
